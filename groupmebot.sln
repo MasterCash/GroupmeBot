@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroupmeBot", "groupmebot\Gr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing", "Testing\Testing.csproj", "{269428C9-F061-4EA5-8AB9-C2CBF2EF3584}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroupmeAPIHandler", "GroupmeAPIHandler\GroupmeAPIHandler.csproj", "{852383F4-A5F3-433B-93BB-CAB86BA6409E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroupmeAPIHandler", "GroupmeAPIHandler\GroupmeAPIHandler.csproj", "{852383F4-A5F3-433B-93BB-CAB86BA6409E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
