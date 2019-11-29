@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GroupmeAPIHandler.Models;
+using GroupmeAPIHandler.Services;
 
-namespace GroupmeAPIHandler.Services
+namespace GroupmeBot.Services
 {
     public class LeaderboardHandler
     {
