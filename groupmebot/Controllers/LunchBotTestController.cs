@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using GroupmeAPIHandler.Models;
 using GroupmeAPIHandler.Services;
+using GroupmeBot.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
@@ -14,14 +15,14 @@ namespace GroupmeBot.Controllers
         private readonly GroupmeBotResponseHandler _responseHandler;
         private readonly IConfiguration _config;
         private static LeaderboardHandler _leaderboardHandler;
-        private static object _lock = new object();
+        private static readonly object Lock = new object();
 
         public LunchBotTestController(GroupmeBotResponseHandler responseHandler, IConfiguration config)
         {
             _config = config;
             _responseHandler = responseHandler;
             _responseHandler.Init(_config["token"]);
-            lock (_lock)
+            lock (Lock)
             {
                 if(_leaderboardHandler == null)
                     _leaderboardHandler = new LeaderboardHandler(responseHandler, _config["testBotId"],_config["testGroupId"], 0);
@@ -37,27 +38,6 @@ namespace GroupmeBot.Controllers
         [HttpPost]
         public async Task Post(GroupmeMessage response)
         {
-            var request = new MessageIndexRequest()
-            {
-                Limit = 100,
-            };
-            var indexResponse = await _responseHandler.Index2Messages(_config["tacoGroupId"], request);
-            var attachments = new JArray();
-            while (indexResponse != null)
-            {
-                var indexMessage = indexResponse.ToObject<MessageIndexResponse>();
-                var messages = ((JArray) indexResponse["messages"]);
-                foreach (var message in messages)
-                {
-                    foreach (var item in ((JArray)message["attachments"]))
-                    {
-                        attachments.Add(item);
-                    }
-                }
-                request.BeforeId = indexMessage.Messages[indexMessage.Messages.Count - 1].Id;
-                indexResponse = await _responseHandler.Index2Messages(_config["tacoGroupId"], request);
-            }
-
             if (response.Text.StartsWith('!'))
             {
                 if (response.Text.StartsWith("!groups"))
